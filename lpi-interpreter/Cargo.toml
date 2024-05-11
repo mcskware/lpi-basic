@@ -1,0 +1,14 @@
+[package]
+name = "lpi-interpreter"
+description = "Applesoft II BASIC interpreter"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+repository.workspace = true
+
+[dependencies]
+lpi-lexer = { workspace = true }
+lpi-parser = { workspace = true }
+winnow = { workspace = true }

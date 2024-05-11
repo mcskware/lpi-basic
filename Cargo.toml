@@ -1,0 +1,17 @@
+[workspace]
+members = ["lpi-lexer", "lpi-parser", "lpi-interpreter"]
+default-members = ["lpi-interpreter"]
+resolver = "2"
+
+[workspace.package]
+authors = ["mcskware"]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+publish = false
+repository = "https://github.com/mcskware/lip-basic"
+
+[workspace.dependencies]
+lpi-lexer = { path = "lpi-lexer" }
+lpi-parser = { path = "lpi-parser" }
+winnow = "0.6.8"
