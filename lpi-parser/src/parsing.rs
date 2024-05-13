@@ -1,6 +1,6 @@
 use crate::{node_type::NodeType, parse_node::ParseNode};
 
-const KEYWORDS: &[&str] = &["PRINT", "LET"];
+const KEYWORDS: &[&str] = &["PRINT", "LET", "END"];
 
 pub fn parse_string(token: &str) -> Option<ParseNode> {
     if token.starts_with('"') && token.ends_with('"') {

@@ -31,6 +31,12 @@ impl ParseNode {
     pub const fn get_node_type(&self) -> NodeType {
         self.node_type
     }
+
+    /// Get the children of the node
+    #[must_use]
+    pub const fn get_children(&self) -> &Vec<Self> {
+        &self.children
+    }
 }
 
 impl std::fmt::Debug for ParseNode {
