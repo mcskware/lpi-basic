@@ -4,7 +4,9 @@
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum NodeType {
     /// Root node
-    Root,
+    Program,
+    /// Line
+    Line,
     /// Line Number node
     LineNumber,
     /// Statement name node
