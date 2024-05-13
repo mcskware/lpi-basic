@@ -37,18 +37,7 @@ pub fn parse(tokens: &[String]) -> ParseNode {
             root.children.push(node);
             continue;
         }
-        if token.chars().any(char::is_numeric) {
-            let node_type = if token.contains('.') {
-                NodeType::Float
-            } else {
-                NodeType::Number
-            };
-            let node = ParseNode {
-                node_type,
-                value: token.clone(),
-                children: Vec::new(),
-            };
-
+        if let Some(node) = parsing::parse_numeric(token) {
             root.children.push(node);
             continue;
         }
