@@ -64,6 +64,12 @@ pub fn lex(input: &str) -> Vec<String> {
                 state = ParseState::Identifier;
                 current_token.push(token);
             }
+            '$' | '%' if state == ParseState::Identifier => {
+                current_token.push(token);
+                tokens.push(current_token.clone());
+                current_token.clear();
+                state = ParseState::Start;
+            }
             '0'..='9' | '.' => {
                 if state != ParseState::Number {
                     state = ParseState::Number;
@@ -91,48 +97,4 @@ pub fn lex(input: &str) -> Vec<String> {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_print_statement() {
-        let input = "10 PRINT \"HELLO, WORLD!\"";
-        let expected = vec!["10", "PRINT", "\"HELLO, WORLD!\""];
-        assert_eq!(lex(input), expected);
-    }
-
-    #[test]
-    fn test_identifiers() {
-        let input = "LET A = 10";
-        let expected = vec!["LET", "A", "=", "10"];
-        assert_eq!(lex(input), expected);
-    }
-
-    #[test]
-    fn test_array_indexing() {
-        let input = "AL(0) = 10";
-        let expected = vec!["AL", "(", "0", ")", "=", "10"];
-        assert_eq!(lex(input), expected);
-    }
-
-    #[test]
-    fn test_mathematical_expression() {
-        let input = "A = 10 + 20";
-        let expected = vec!["A", "=", "10", "+", "20"];
-        assert_eq!(lex(input), expected);
-    }
-
-    #[test]
-    fn test_float_number() {
-        let input = "A = 10.5";
-        let expected = vec!["A", "=", "10.5"];
-        assert_eq!(lex(input), expected);
-    }
-
-    #[test]
-    fn test_exponential_number() {
-        let input = "A = 1.5E-10";
-        let expected = vec!["A", "=", "1.5E-10"];
-        assert_eq!(lex(input), expected);
-    }
-}
+mod tests;

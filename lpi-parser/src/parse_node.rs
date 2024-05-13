@@ -37,6 +37,22 @@ impl ParseNode {
     pub const fn get_children(&self) -> &Vec<Self> {
         &self.children
     }
+
+    /// Get the value of the node
+    #[must_use]
+    pub fn get_value(&self) -> &str {
+        &self.value
+    }
+
+    /// Create a new parse node
+    #[must_use]
+    pub fn new(node_type: NodeType, value: String, children: Vec<Self>) -> Self {
+        Self {
+            node_type,
+            value,
+            children,
+        }
+    }
 }
 
 impl std::fmt::Debug for ParseNode {
