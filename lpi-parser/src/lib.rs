@@ -6,8 +6,8 @@ use node_type::NodeType;
 use parse_node::ParseNode;
 
 mod expressions;
-mod node_type;
-mod parse_node;
+pub mod node_type;
+pub mod parse_node;
 mod parsing;
 
 /// Stub function to return a string

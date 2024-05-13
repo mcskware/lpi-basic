@@ -1,3 +1,5 @@
+//! Represents a parse tree node
+
 use crate::node_type::NodeType;
 
 /// Parse node
@@ -22,6 +24,12 @@ impl ParseNode {
             child.display_at_depth(fmt, depth + 1)?;
         }
         Ok(())
+    }
+
+    /// Get the type of the node
+    #[must_use]
+    pub const fn get_node_type(&self) -> NodeType {
+        self.node_type
     }
 }
 

@@ -1,3 +1,5 @@
+//! Node type
+
 /// Node type
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum NodeType {
