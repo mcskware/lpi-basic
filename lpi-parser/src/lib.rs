@@ -2,67 +2,13 @@
 //!
 //! The parser takes the output of the lexer and builds a parse tree.
 
-/// Node type
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
-pub enum NodeType {
-    /// Root node
-    Root,
-    /// Line Number node
-    LineNumber,
-    /// Statement name node
-    StatementName,
-    /// String node
-    String,
-    /// Number node
-    Number,
-    /// Float node
-    Float,
-    /// Identifier node
-    Identifier,
-    /// Symbol node
-    Symbol,
-    /// Expression node
-    Expression,
-}
+use node_type::NodeType;
+use parse_node::ParseNode;
+
+mod node_type;
+mod parse_node;
 
 const KEYWORDS: [&str; 1] = ["PRINT"];
-
-/// Parse node
-#[derive(PartialEq, Clone)]
-pub struct ParseNode {
-    node_type: NodeType,
-    value: String,
-    children: Vec<ParseNode>,
-}
-
-impl ParseNode {
-    fn display_at_depth(
-        &self,
-        fmt: &mut std::fmt::Formatter<'_>,
-        depth: usize,
-    ) -> std::fmt::Result {
-        for _ in 0..depth {
-            write!(fmt, "  ")?;
-        }
-        writeln!(fmt, "{:?} '{}'", self.node_type, self.value)?;
-        for child in &self.children {
-            child.display_at_depth(fmt, depth + 1)?;
-        }
-        Ok(())
-    }
-}
-
-impl std::fmt::Debug for ParseNode {
-    fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(fmt, "{self}")
-    }
-}
-
-impl std::fmt::Display for ParseNode {
-    fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.display_at_depth(fmt, 0)
-    }
-}
 
 /// Stub function to return a string
 #[must_use]
