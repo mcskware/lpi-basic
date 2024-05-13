@@ -52,6 +52,19 @@ pub fn parse(tokens: &[String]) -> ParseNode {
     // combine arithmetic expressions until there are no more to combine
     expressions::combine(&mut root);
 
+    // if we have a line number directly followed by an identifier, change it into a LET statement
+    if root.children.len() > 1
+        && root.children[0].node_type == NodeType::LineNumber
+        && root.children[1].node_type == NodeType::Identifier
+    {
+        let let_node = ParseNode {
+            node_type: NodeType::StatementName,
+            value: "LET".to_owned(),
+            children: Vec::new(),
+        };
+        root.children.insert(1, let_node);
+    }
+
     root
 }
 

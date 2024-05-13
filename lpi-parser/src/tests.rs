@@ -286,3 +286,65 @@ fn test_parens() {
 
     assert_eq!(parse, expected);
 }
+
+#[test]
+fn test_let_assignment() {
+    let tokens = vec![
+        "10".to_owned(),
+        "A".to_owned(),
+        "=".to_owned(),
+        "3".to_owned(),
+        "+".to_owned(),
+        "4".to_owned(),
+    ];
+    let parse = parse(&tokens);
+    let expected = ParseNode {
+        node_type: NodeType::Root,
+        value: String::new(),
+        children: vec![
+            ParseNode {
+                node_type: NodeType::LineNumber,
+                value: "10".to_owned(),
+                children: Vec::new(),
+            },
+            ParseNode {
+                node_type: NodeType::StatementName,
+                value: "LET".to_owned(),
+                children: Vec::new(),
+            },
+            ParseNode {
+                node_type: NodeType::Identifier,
+                value: "A".to_owned(),
+                children: Vec::new(),
+            },
+            ParseNode {
+                node_type: NodeType::Symbol,
+                value: "=".to_owned(),
+                children: Vec::new(),
+            },
+            ParseNode {
+                node_type: NodeType::Expression,
+                value: String::new(),
+                children: vec![
+                    ParseNode {
+                        node_type: NodeType::Number,
+                        value: "3".to_owned(),
+                        children: Vec::new(),
+                    },
+                    ParseNode {
+                        node_type: NodeType::Symbol,
+                        value: "+".to_owned(),
+                        children: Vec::new(),
+                    },
+                    ParseNode {
+                        node_type: NodeType::Number,
+                        value: "4".to_owned(),
+                        children: Vec::new(),
+                    },
+                ],
+            },
+        ],
+    };
+
+    assert_eq!(parse, expected);
+}
