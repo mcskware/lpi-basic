@@ -27,6 +27,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "lpi-terminal"
+version = "0.1.0"
+dependencies = [
+ "lpi-interpreter",
+ "lpi-lexer",
+ "lpi-parser",
+]
+
+[[package]]
 name = "memchr"
 version = "2.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"

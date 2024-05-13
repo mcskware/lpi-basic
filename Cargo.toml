@@ -1,6 +1,5 @@
 [workspace]
-members = ["lpi-lexer", "lpi-parser", "lpi-interpreter"]
-default-members = ["lpi-interpreter"]
+members = ["lpi-lexer", "lpi-parser", "lpi-interpreter", "lpi-terminal"]
 resolver = "2"
 
 [workspace.package]
@@ -12,6 +11,7 @@ publish = false
 repository = "https://github.com/mcskware/lip-basic"
 
 [workspace.dependencies]
+lpi-interpreter = { path = "lpi-interpreter" }
 lpi-lexer = { path = "lpi-lexer" }
 lpi-parser = { path = "lpi-parser" }
 winnow = "0.6.8"
