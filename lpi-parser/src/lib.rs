@@ -7,6 +7,7 @@ use parse_node::ParseNode;
 
 mod node_type;
 mod parse_node;
+mod parsing;
 
 const KEYWORDS: [&str; 1] = ["PRINT"];
 
@@ -22,13 +23,7 @@ pub fn parse(tokens: &[String]) -> ParseNode {
 
     // first just map each token to its type
     for token in tokens {
-        if token.starts_with('"') && token.ends_with('"') {
-            let node = ParseNode {
-                node_type: NodeType::String,
-                value: token.clone(),
-                children: Vec::new(),
-            };
-
+        if let Some(node) = parsing::parse_string(token) {
             root.children.push(node);
             continue;
         }
