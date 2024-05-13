@@ -9,8 +9,6 @@ mod node_type;
 mod parse_node;
 mod parsing;
 
-const KEYWORDS: [&str; 1] = ["PRINT"];
-
 /// Stub function to return a string
 #[must_use]
 pub fn parse(tokens: &[String]) -> ParseNode {
@@ -27,35 +25,21 @@ pub fn parse(tokens: &[String]) -> ParseNode {
             root.children.push(node);
             continue;
         }
-        if token.chars().all(char::is_numeric) && root.children.is_empty() {
-            let node = ParseNode {
-                node_type: NodeType::LineNumber,
-                value: token.clone(),
-                children: Vec::new(),
-            };
-
-            root.children.push(node);
-            continue;
+        if root.children.is_empty() {
+            if let Some(node) = parsing::parse_line_number(token) {
+                root.children.push(node);
+                continue;
+            }
         }
         if let Some(node) = parsing::parse_numeric(token) {
             root.children.push(node);
             continue;
         }
-        if token.chars().any(char::is_alphabetic) {
-            let node_type = if KEYWORDS.contains(&token.as_str()) {
-                NodeType::StatementName
-            } else {
-                NodeType::Identifier
-            };
-            let node = ParseNode {
-                node_type,
-                value: token.clone(),
-                children: Vec::new(),
-            };
-
+        if let Some(node) = parsing::parse_identifier(token) {
             root.children.push(node);
             continue;
         }
+        // anything else is just a symbol
         let node = ParseNode {
             node_type: NodeType::Symbol,
             value: token.clone(),
